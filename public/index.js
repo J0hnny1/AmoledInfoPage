@@ -82,7 +82,6 @@ function getMaterialDesignIconForWeatherCode(weatherCode, isDay) {
     } else {
       console.warn("Unknown weather code:", weatherCode);
       return isDay === 1 ? "cloud" : "clear_night"; // Partly cloudy: 1-3 oktas
-      //return "cloud"; // Unknown weather code
     }
 }
   

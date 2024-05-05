@@ -5,7 +5,7 @@ const port = 3000
 app.use(express.static("public"));
 const baseHAUrl = 'http://homeassistant.fritz.box:8123/api/';
 const haToken = 'Bearer '
-const sensorsToGet = ['sensor.apollo_msr_1_bad7fc_co2', 'sensor.temperatur_average', 'sensor.apollo_msr_1_bad7fc_ltr390_light', 'sensor.apollo_msr_1_bad7fc_ltr390_light']
+const sensorsToGet = ['sensor.apollo_msr_1_bad7fc_co2', 'sensor.temperatur_average', 'sensor.apollo_msr_1_bad7fc_ltr390_light']
 
 app.get('/api/getSensorData', (req, res) => {
   getSensorData().then(returnData => {
