@@ -2,7 +2,7 @@ var showExtraInfos = true;
 var isOn = true;
 var turnedOffManually = false;
 function updateTextFields(data) {
-  var co2, brightness;
+  var co2, brightness, home;
   data.forEach(entry => {
     var id;
     switch (entry.name) {
@@ -21,6 +21,9 @@ function updateTextFields(data) {
         break;
       case 'LUMI lumi.weather Luftfeuchtigkeit':
         id = 'humidity';
+        break;
+      case 'a52s_j':
+        home = entry.state;
         break;
       case 'Wecker':
         if (entry.state === 'on') {
@@ -45,7 +48,7 @@ function updateTextFields(data) {
   } else if(isOn) {
     document.getElementById('co2Icon').style.color = 'white';
   }
-  if (brightness < 5) {
+  if (brightness < 5 || home === 'not_home') {
     document.getElementsByTagName('body')[0].style.color = 'black';
     document.getElementById('co2Icon').style.color = 'black';
   } else if(isOn) {
