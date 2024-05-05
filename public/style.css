@@ -3,6 +3,15 @@ body {
     color: white;
 }
 
+.iconButton {
+    height: 40px; 
+    width: 40px;
+}
+
+.hidden {
+    display: none;
+}
+
 :root {
     font-family: 'Roboto', system-ui, sans-serif;
     font-size: 38px;

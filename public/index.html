@@ -14,35 +14,52 @@
 <body style="height: 800px;">
     <div
         style="display: flex; flex-direction: row; justify-content: space-between; margin: 2%; align-items: center; margin-top: 300px;">
-        <div style="display: flex; align-items: center; flex-direction: column; align-items: flex-start;">
+        <div style="display: flex; align-items: center; flex-direction: column; align-items: flex-start;" onclick="toggleExtraInfos()">
             <div>
                 <span class="material-symbols-outlined">
                     thermometer
                 </span>
                 <span id="temperatur">
-                    15 °C
+                    
                 </span>
             </div>
-
 
             <div style="display: flex; align-items: center;" onclick="console.log('Time clicked')">
                 <span class="material-symbols-outlined" id="co2Icon">
                     co2
                 </span>
                 <span style="margin-left: 3px;" id="co2">
-                    2000 ppm
+                    
                 </span>
+            </div>
+
+            <div id="humidityDiv">
+                <span class="material-symbols-outlined">
+                    humidity_percentage
+                </span>
+                <span id="humidity">
+                    
+                </span>    
+            </div>
+    
+            <div id="powerDiv">
+                <span class="material-symbols-outlined">
+                    computer
+                </span>
+                <span id="pcPowerUsage">
+                    
+                </span>
+    
             </div>
         </div>
 
-        <div style="display: flex; flex-direction: column; align-items: center;" id="clockDiv">
+        <div style="display: flex; flex-direction: column; align-items: center;" id="clockDiv" onclick="toggleOff()">
             <h1 id="time" style="margin: 0; padding: 0;">
                 Clock
             </h1>
             <h3 id="date" style="margin: 0; padding: 0; font-size: large; align-self: center;" >Mi. 0.5.05</h2>
         </div>
 
-        
             <div style="display: flex; flex-direction: column; align-items: center;">
                 <div style="display: flex; justify-content: center;">
                     <span id="wetterIcon" class="material-symbols-outlined" style="align-content: center;">
@@ -67,27 +84,36 @@
                             <h4 id="wetterMax" style="display: inline; font-size: large;"> </h4>
                         </span>
                     </div>
-                    
                 </div>
-
             </div>
 
-        
     </div>
 
-    <div style="display: flex; justify-content: center;">
-        <div style="height: 40px; width: 40px;" onclick="fetch('/api/toggleBackground')">
-            <span class="material-symbols-outlined" style="align-content: center;">
-                lightbulb
+    <div style="display: flex; justify-content: space-around;">
+        <div class="iconButton" onclick="toggleAlarm()">
+            <span class="material-symbols-outlined" id="alarmIcon">
+                alarm
             </span>
         </div>
-        <div style="height: 40px; width: 40px;" onclick="fetch('/api/toggleFloalt')">
+
+        <div class="iconButton" onclick="fetch('/api/toggleFloalt')">
             <span class="material-symbols-outlined" style="align-content: center;">
                 wb_iridescent
             </span>
         </div>
-    </div>
 
+        <div class="iconButton" onclick="fetch('/api/toggleBackground')">
+            <span class="material-symbols-outlined" style="align-content: center;">
+                lightbulb
+            </span>
+        </div>
+
+        <div class="iconButton" onclick="fetch('http://j-pc-windows:5001/suspend/')">
+            <span class="material-symbols-outlined">
+               power_settings_new
+           </span>
+        </div>
+    </div>
 
     <script src="index.js"> </script>
 </body>

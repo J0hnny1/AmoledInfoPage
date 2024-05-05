@@ -1,36 +1,56 @@
+var showExtraInfos = true;
+var isOn = true;
+var turnedOffManually = false;
 function updateTextFields(data) {
- var co2, brightness;
+  var co2, brightness;
   data.forEach(entry => {
+    var id;
     switch (entry.name) {
       case 'CO2':
-        document.getElementById('co2').textContent = entry.state + ' ' + entry.unit_of_measurement;
+        id = 'co2';
         co2 = entry.state;
         break;
       case 'Temperatur Average':
-        document.getElementById('temperatur').textContent = entry.state + ' ' + entry.unit_of_measurement;
+        id = 'temperatur';
         break;
-      case 'Helligkeit':
+      case 'Multisensor LTR390 Light':
         brightness = entry.state;
         break;
+      case 'PC Setup Stromverbrauch':
+        id = 'pcPowerUsage';
+        break;
+      case 'LUMI lumi.weather Luftfeuchtigkeit':
+        id = 'humidity';
+        break;
+      case 'Wecker':
+        if (entry.state === 'on') {
+          document.getElementById('alarmIcon').innerText = 'alarm';
+        } else {
+          document.getElementById('alarmIcon').innerText = 'alarm_off';
+        }
+    }
+    try {
+      document.getElementById(id).textContent = entry.state + ' ' + entry.unit_of_measurement;
+    } catch (error) {
+      // console.error('Error:', error);
     }
   });
   console.log('data', data)
-  console.log('co2 br', co2, brightness)
-  
-  // document.getElementById('brightness').textContent = data[2].state + ' ' + data[2].unit_of_measurement;
+
+
   document.getElementById('time').textContent = new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
-  
+
   if (co2 > 1300) {
     document.getElementById('co2Icon').style.color = 'red';
-  } else {
+  } else if(isOn) {
     document.getElementById('co2Icon').style.color = 'white';
   }
   if (brightness < 5) {
     document.getElementsByTagName('body')[0].style.color = 'black';
     document.getElementById('co2Icon').style.color = 'black';
-  }
-  if (brightness > 5   && location.pathname === '/off.html') {
+  } else if(isOn) {
     document.getElementsByTagName('body')[0].style.color = 'white';
+    document.getElementById('co2Icon').style.color = 'white';
   }
 }
 
@@ -63,6 +83,30 @@ function updateWeather() {
 function weatherClicked() {
   console.log('weather clicked');
   fetch('/api/toggleLightAll')
+}
+
+function toggleExtraInfos() {
+  showExtraInfos = !showExtraInfos;
+  document.getElementById('humidityDiv').style.display = showExtraInfos ? 'block' : 'none';
+  document.getElementById('powerDiv').style.display = showExtraInfos ? 'block' : 'none';
+}
+
+function toggleAlarm() {
+  fetch('/api/toggleAlarm').then(() => fetchData());
+}
+
+function toggleOff() {
+  if (isOn) {
+    document.getElementsByTagName('body')[0].style.color = 'black';
+    document.getElementById('co2Icon').style.color = 'black';
+    isOn = false;
+    turnedOffManually = true;
+  } else {
+    document.getElementsByTagName('body')[0].style.color = 'white';
+    document.getElementById('co2Icon').style.color = 'white';
+    isOn = true;
+    turnedOffManually = false;
+  }
 }
 
 function getMaterialDesignIconForWeatherCode(weatherCode, isDay) {
@@ -105,6 +149,6 @@ updateWeather();
 
 setInterval(fetchData, 60000);
 setInterval(updateWeather, 1.2e+6);
-setInterval(function() {
+setInterval(() => {
   document.getElementById('date').textContent = new Date().toLocaleDateString('de-DE', { weekday: 'long', month: 'long', day: 'numeric' });
 }, 2000);
