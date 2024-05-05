@@ -4,7 +4,7 @@ const port = 3000
 
 app.use(express.static("public"));
 const baseHAUrl = 'http://homeassistant.fritz.box:8123/api/';
-const haToken = 'Bearer '
+const haToken = 'Bearer'
 const sensorsToGet = ['sensor.apollo_msr_1_bad7fc_co2', 'sensor.temperatur_average', 'sensor.apollo_msr_1_bad7fc_ltr390_light']
 
 app.get('/api/getSensorData', (req, res) => {
@@ -14,7 +14,7 @@ app.get('/api/getSensorData', (req, res) => {
   })
 })
 
-app.get('/api/toggleLightAll', (req, res) => {
+app.get('/api/toggleBackground', (req, res) => {
   fetch(baseHAUrl + 'services/light/toggle', {
     method: 'POST',
     headers: { 'Authorization': haToken, 'Content-Type': 'application/json'},
@@ -25,6 +25,9 @@ app.get('/api/toggleLightAll', (req, res) => {
   }).catch(error => {
     console.error('Error:', error);
   }); 
+})
+
+app.get('/api/toggleFloalt', (req, res) => {
   fetch(baseHAUrl + 'services/light/toggle', {
     method: 'POST',
     headers: { 'Authorization': haToken, 'Content-Type': 'application/json'},
