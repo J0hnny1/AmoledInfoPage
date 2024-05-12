@@ -3,10 +3,10 @@ const app = express()
 const port = 3000
 
 app.use(express.static("public"));
-const baseHAUrl = 'http://homeassistant.fritz.box:8123/api/';
-const haToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIyOGYzZjFmNjQ3Nzk0YzQxOWZkMzA2NjYxODU4ZTU5NiIsImlhdCI6MTY1NTcyOTUxNCwiZXhwIjoxOTcxMDg5NTE0fQ.BYcU-sgo41DIT4JGlwCmZaoA_Bdp5il0rharLprXtB4'
-const sensorsToGet = ['sensor.apollo_msr_1_bad7fc_co2', 'sensor.temperatur_average', 'sensor.apollo_msr_1_bad7fc_ltr390_light', 'sensor.lumi_lumi_weather_humidity', 
-'sensor.nous_smart_steckdose_active_power', 'sensor.nous_steckdose_2_active_power', 'automation.wecker', 'device_tracker.a52s_j']
+const baseHAUrl = 'http://jserver.fritz.box:8123/api/';
+const haToken = 'Bearer '
+const sensorsToGet = ['sensor.apollo_msr_1_bad7fc_co2', 'sensor.lumi_lumi_weather_temperatur', 'sensor.apollo_msr_1_bad7fc_ltr390_light', 'sensor.lumi_lumi_weather_luftfeuchtigkeit', 
+'sensor.tz3000_2putqrmw_ts011f_leistung_2', 'sensor.nous_steckdose_2_active_power', 'automation.wecker', 'device_tracker.a52s_j']
 
 app.get('/api/getSensorData', (req, res) => {
   getSensorData().then(returnData => {
@@ -19,7 +19,7 @@ app.get('/api/toggleBackground', (req, res) => {
   fetch(baseHAUrl + 'services/light/toggle', {
     method: 'POST',
     headers: { 'Authorization': haToken, 'Content-Type': 'application/json'},
-    body: JSON.stringify({ entity_id: 'light.hue_und_bett' })
+    body: JSON.stringify({ entity_id: 'light.hintergrund' })
   }).then(response => response.json()).then(data => {
     console.log('data', data)
     res.send(data)
@@ -32,7 +32,7 @@ app.get('/api/toggleFloalt', (req, res) => {
   fetch(baseHAUrl + 'services/light/toggle', {
     method: 'POST',
     headers: { 'Authorization': haToken, 'Content-Type': 'application/json'},
-    body: JSON.stringify({ entity_id: 'light.ikea_of_sweden_floalt_panel_ws_60x60' })
+    body: JSON.stringify({ entity_id: 'light.ikea_of_sweden_floalt_panel_ws_60x60_licht' })
   }).then(response => response.json()).then(data => {
     console.log('data', data)
     res.send(data)

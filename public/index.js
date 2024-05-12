@@ -6,20 +6,20 @@ function updateTextFields(data) {
   data.forEach(entry => {
     var id;
     switch (entry.name) {
-      case 'CO2':
+      case 'Apollo Multisensor Mk1 (MSR-1) bad7fc CO2':
         id = 'co2';
         co2 = entry.state;
         break;
-      case 'Temperatur Average':
+      case 'LUMI lumi.weather Temperatur':
         id = 'temperatur';
         break;
-      case 'Multisensor LTR390 Light':
+      case 'Apollo Multisensor Mk1 (MSR-1) bad7fc LTR390 Light':
         brightness = entry.state;
         break;
-      case 'PC Setup Stromverbrauch':
+      case 'Steckdose PC Leistung':
         id = 'pcPowerUsage';
         break;
-      case 'LUMI lumi.weather Luftfeuchtigkeit':
+      case 'Apollo Multisensor Mk1 (MSR-1) bad7fc BME280 Humidity':
         id = 'humidity';
         break;
       case 'a52s_j':
@@ -48,7 +48,7 @@ function updateTextFields(data) {
   } else if(isOn) {
     document.getElementById('co2Icon').style.color = 'white';
   }
-  if (brightness < 5 || home === 'not_home') {
+  if (brightness < 1 || home === 'not_home') {
     document.getElementsByTagName('body')[0].style.color = 'black';
     document.getElementById('co2Icon').style.color = 'black';
   } else if(isOn) {
