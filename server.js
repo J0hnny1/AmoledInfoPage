@@ -54,6 +54,19 @@ app.get('/api/toggleAlarm', (req, res) => {
   }); 
 })
 
+app.get('/api/togglePCPower', (req, res) => {
+  fetch(baseHAUrl + 'services/switch/toggle', {
+    method: 'POST',
+    headers: { 'Authorization': haToken, 'Content-Type': 'application/json'},
+    body: JSON.stringify({ entity_id: 'switch.tz3000_2putqrmw_ts011f_schalter_2' })
+  }).then(response => response.json()).then(data => {
+    console.log('data', data)
+    res.send(data)
+  }).catch(error => {
+    console.error('Error:', error);
+  }); 
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
