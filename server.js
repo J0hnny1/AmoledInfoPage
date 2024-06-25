@@ -4,7 +4,7 @@ const port = 3000
 
 app.use(express.static("public"));
 const baseHAUrl = 'http://jserver.fritz.box:8123/api/';
-const haToken = 'Bearer '
+const haToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYzFhNDUyNTU4N2U0OTVkODJlYTM0NzU2YmMyNzA3YyIsImlhdCI6MTcxNTUxNzc5MywiZXhwIjoyMDMwODc3NzkzfQ.ZToIXAD8luAB2jdQ678wtlvdQW5SFbTPqKuPc7QRJl4'
 const sensorsToGet = ['sensor.apollo_msr_1_bad7fc_co2', 'sensor.lumi_lumi_weather_temperatur', 'sensor.apollo_msr_1_bad7fc_ltr390_light', 'sensor.lumi_lumi_weather_luftfeuchtigkeit', 
 'sensor.tz3000_2putqrmw_ts011f_leistung_2', 'sensor.nous_steckdose_2_active_power', 'automation.wecker', 'device_tracker.a52s_j']
 
@@ -39,6 +39,19 @@ app.get('/api/toggleFloalt', (req, res) => {
   }).catch(error => {
     console.error('Error:', error);
   }); 
+})
+
+app.get('/api/toggleFan', (req, res) => {
+  fetch(baseHAUrl + 'services/switch/toggle', {
+    method: 'POST',
+    headers: { 'Authorization': haToken, 'Content-Type': 'application/json'},
+    body: JSON.stringify({ entity_id: 'switch.nous3_schalter_3' })
+  }).then(response => response.json()).then(data => {
+    console.log('data', data)
+    res.send(data)
+  }).catch(error => {
+    console.error('Error:', error);
+  });
 })
 
 app.get('/api/toggleAlarm', (req, res) => {

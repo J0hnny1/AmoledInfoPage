@@ -19,7 +19,7 @@ function updateTextFields(data) {
       case 'Steckdose PC Leistung':
         id = 'pcPowerUsage';
         break;
-      case 'Apollo Multisensor Mk1 (MSR-1) bad7fc BME280 Humidity':
+      case 'LUMI lumi.weather Luftfeuchtigkeit':
         id = 'humidity';
         break;
       case 'a52s_j':
